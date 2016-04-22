@@ -16,4 +16,4 @@ def index(request):
         tweet_object = {'name': tweet.name, 'user': tweet.user, 'text': tweet.text}
         return JsonResponse(tweet_object, safe=False)
     except Exception:
-        return HttpResponse('ERROR')
+        return HttpResponse('DJANGO ERROR')
