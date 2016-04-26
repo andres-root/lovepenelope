@@ -1,6 +1,6 @@
 
 # from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from time import strftime
 from .api import Twitter
 from .models import Tweet
@@ -18,8 +18,9 @@ def index(request):
             'name': tweet.name,
             'user': tweet.user,
             'text': tweet.text,
-            'date': tweet.twitter_date_created.strftime('%d/%b/%Y')
+            'date': tweet.twitter_date_created.strftime('%d/%b/%Y'),
+            'error': False
         }
         return JsonResponse(tweet_object, safe=False)
     except Exception:
-        return HttpResponse('DJANGO ERROR')
+        return JsonResponse({'error': True}, safe=False)

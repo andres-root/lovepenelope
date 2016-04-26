@@ -17,7 +17,7 @@ class StreamListener(tweepy.StreamListener):
                 name=status.author.name,
                 user=status.author.screen_name,
                 text=status.text,
-                twitter_date_created=status.date_created
+                twitter_date_created=status.created_at
             )
             tweet.save()
         else:
