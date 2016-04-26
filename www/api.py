@@ -13,7 +13,12 @@ class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
         if self.counter < self.limit:
             self.counter += 1
-            tweet = Tweet(name=status.author.name, user=status.author.screen_name, text=status.text)
+            tweet = Tweet(
+                name=status.author.name,
+                user=status.author.screen_name,
+                text=status.text,
+                twitter_date_created=status.date_created
+            )
             tweet.save()
         else:
             return False
