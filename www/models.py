@@ -1,5 +1,6 @@
 
 from django.db import models
+from datetime import datetime 
 
 
 class Tweet(models.Model):
@@ -7,7 +8,7 @@ class Tweet(models.Model):
     user = models.CharField(max_length=200)
     text = models.CharField(max_length=140)
     date_created = models.DateTimeField(auto_now_add=True)
-    twitter_date_created = models.DateTimeField(blank=False, null=False)
+    twitter_date_created = models.DateTimeField(blank=False, null=False, default=datetime.now())
     date_updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
