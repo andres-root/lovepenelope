@@ -18,7 +18,7 @@ def index(request):
             'name': tweet.name,
             'user': tweet.user,
             'text': tweet.text,
-            'date': tweet.twitter_date_created.strftime('%d/%b/%Y'),
+            'date': tweet.twitter_date_created.strftime('%d/%b/%Y %H:%M'),
             'error': False
         }
         return JsonResponse(tweet_object, safe=False)
