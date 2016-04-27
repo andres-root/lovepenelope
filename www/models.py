@@ -21,6 +21,8 @@ class TwitterConfiguration(models.Model):
     consumer_secret = models.CharField(max_length=200)
     access_token = models.CharField(max_length=200)
     access_token_secret = models.CharField(max_length=200)
+    topics = models.TextField()
+    languages = models.TextField()
 
     def __str__(self):
         return self.account
