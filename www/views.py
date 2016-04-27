@@ -28,7 +28,7 @@ def index(request):
             'name': '@Penelope',
             'user': 'Penelope',
             'text': 'I can\'t find you love.',
-            'date': datetime.now().strftime('%d/%b/%Y      %H:%M'),
+            'date': datetime.now().strftime('%d/%b/%Y              %H:%M'),
             'error': True
         }
         return JsonResponse(tweet_object, safe=False)
