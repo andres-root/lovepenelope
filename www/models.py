@@ -16,10 +16,11 @@ class Tweet(models.Model):
 
 
 class TwitterConfiguration(models.Model):
+    account = models.CharField(max_length=200)
     consumer_key = models.CharField(max_length=200)
     consumer_secret = models.CharField(max_length=200)
     access_token = models.CharField(max_length=200)
     access_token_secret = models.CharField(max_length=200)
 
     def __str__(self):
-        return '@Penelope'
+        return self.account
