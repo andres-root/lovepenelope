@@ -3,14 +3,15 @@
 from django.http import JsonResponse
 from datetime import datetime
 from .api import Twitter
-from .models import Tweet
+from .models import Tweet, TwitterConfiguration
 
 
 def index(request):
     try:
+        conf = TwitterConfiguration.objects.first()
         twitter = Twitter()
-        topics = ['love', '#love']
-        languages = ['en']
+        topics = conf.topics.split()
+        languages = conf.languages.split()
         twitter.stream(topics, languages)
         tweets = Tweet.objects.all()
         tweet = tweets[len(tweets) - 1]
