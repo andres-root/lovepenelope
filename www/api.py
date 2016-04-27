@@ -1,5 +1,5 @@
 
-from .models import Tweet
+from .models import Tweet, TwitterConfiguration
 import tweepy
 
 
@@ -33,10 +33,12 @@ class StreamListener(tweepy.StreamListener):
 class Twitter(object):
 
     def __init__(self):
-        self.consumer_key = 'j6yrXInZz1EU5S72WSuwgBUln'
-        self.consumer_secret = 'Dy5JfkHrVgdJGLdLCTsjVOC2HDEwFplJCKZyymxvQe1F5yYpLY'
-        self.access_token = '54296117-B4CEjQS35kllLzXUCMLJDHZzgd6Q3o0EMF4iwKwc2'
-        self.access_token_secret = 'PoRvZpY8sHCHV6rz5uGysWzV6Mc2pVfrQJx8eZoprAJUV'
+
+        conf = TwitterConfiguration.objects.first()
+        self.consumer_key = conf.consumer_key
+        self.consumer_secret = conf.consumer_secret
+        self.access_token = conf.access_token
+        self.access_token_secret = conf.access_token_secret
         self.api_auth = None
         self.api = None
         self.api_stream = None
