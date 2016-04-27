@@ -17,7 +17,7 @@ def index(request):
         tweet = tweets[len(tweets) - 1]
         tweet_object = {
             'name': tweet.name,
-            'user': tweet.user,
+            'user': '@{0}'.format(tweet.user),
             'text': tweet.text,
             'date': tweet.twitter_date_created.strftime('%d/%b/%Y      %H:%M'),
             'error': False
