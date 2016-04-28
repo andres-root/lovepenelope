@@ -25,8 +25,12 @@ def index(request):
         if Country.objects.count() > 0 and country not in not_countries and conf.geolocation:
             country_object = Country.objects.filter(
                 country_code=country['country_code'].lower()).values('topics', 'languages')
-            topics = country_object[0]['topics'].split()
-            languages = country_object[0]['languages'].split()
+            if len(country_object) > 0:
+                topics = country_object[0]['topics'].split()
+                languages = country_object[0]['languages'].split()
+            else:
+                topics = conf.topics.split()
+                languages = conf.languages.split()
         else:
             topics = conf.topics.split()
             languages = conf.languages.split()
