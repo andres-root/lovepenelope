@@ -22,9 +22,10 @@ def index(request):
         conf = TwitterConfiguration.objects.first()
         twitter = Twitter()
         if Country.objects.count() > 0 and country != 'uknown' and conf.geolocation:
-            country_object = Country.objects.filter(country_code='CO'.lower()).values('topics', 'languages')
-            topics = country_object['topics']
-            languages = country_object['languages']
+            country_object = Country.objects.filter(
+                country_code=country['country_code'].lower()).values('topics', 'languages')
+            topics = country_object['topics'].split()
+            languages = country_object['languages'].split()
         else:
             topics = conf.topics.split()
             languages = conf.languages.split()
