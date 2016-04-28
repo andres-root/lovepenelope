@@ -41,7 +41,7 @@ def index(request):
             'name': tweet.name,
             'user': '@{0}'.format(tweet.user),
             'text': tweet.text,
-            'date': tweet.twitter_date_created.strftime('%d/%b/%Y      %H:%M')
+            'date': tweet.twitter_date_created.strftime('%d/%b/%Y                       %H:%M')
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
