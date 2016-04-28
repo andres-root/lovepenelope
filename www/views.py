@@ -50,6 +50,7 @@ def index(request):
             'text': 'I can\'t find you love.',
             'date': datetime.now().strftime('%d/%b/%Y \t \t \t \t \t \t \t %H:%M'),
             'country': country,
+            'debug': country_object = Country.objects.filter(country_code=country['country_code'].lower()).values('topics', 'languages'),
             'error': True
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
