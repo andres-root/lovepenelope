@@ -32,8 +32,8 @@ class TwitterConfiguration(models.Model):
 class Country(models.Model):
     country_name = models.CharField(max_length=200)
     country_code = models.CharField(max_length=2)
-    country_language_code = models.CharField(max_length=200)
     topics = models.TextField()
+    languages = models.TextField()
     active = models.BooleanField(default=True)
 
     def __str__(self):

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .api import Twitter
 from datetime import datetime
 from .utils import get_client_ip
-from .models import Tweet, TwitterConfiguration
+from .models import Tweet, TwitterConfiguration, Country
 from django.contrib.gis.geoip2 import GeoIP2
 
 
@@ -21,8 +21,13 @@ def index(request):
     try:
         conf = TwitterConfiguration.objects.first()
         twitter = Twitter()
-        topics = conf.topics.split()
-        languages = conf.languages.split()
+        if Country.objects.count() > 0 and country != 'uknown' and conf.geolocation:
+            country_object = Country.objects.filter(country_code='CO'.lower()).values('topics', 'languages')
+            topics = country_object['topics']
+            languages = country_object['languages']
+        else:
+            topics = conf.topics.split()
+            languages = conf.languages.split()
         twitter.stream(topics, languages)
         tweets = Tweet.objects.all()
         tweet = tweets[len(tweets) - 1]
