@@ -5,11 +5,14 @@ from datetime import datetime
 from .api import Twitter
 from .utils import get_client_ip
 from .models import Tweet, TwitterConfiguration
+from django.contrib.gis.geoip import GeoIP
 
 
 def index(request):
     try:
         ip = get_client_ip(request)
+        g = GeoIP()
+        country = g.city(ip)
         conf = TwitterConfiguration.objects.first()
         twitter = Twitter()
         topics = conf.topics.split()
@@ -23,7 +26,7 @@ def index(request):
             'text': tweet.text,
             'date': tweet.twitter_date_created.strftime('%d/%b/%Y      %H:%M'),
             'error': False,
-            'ip': ip,
+            'country': country,
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
