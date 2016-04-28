@@ -16,6 +16,9 @@ def index(request):
             country = 'localhost'
         else:
             country = g.city(ip)
+    except Exception:
+        country = 'uknown'
+    try:
         conf = TwitterConfiguration.objects.first()
         twitter = Twitter()
         topics = conf.topics.split()
@@ -34,12 +37,6 @@ def index(request):
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
     except Exception:
-        ip = get_client_ip(request)
-        g = GeoIP2()
-        if ip == '127.0.0.1':
-            country = 'localhost'
-        else:
-            country = g.city(ip)
         tweet_object = {
             'name': '@Penelope',
             'user': 'Penelopé',

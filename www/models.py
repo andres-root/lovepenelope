@@ -23,6 +23,18 @@ class TwitterConfiguration(models.Model):
     access_token_secret = models.CharField(max_length=200)
     topics = models.TextField()
     languages = models.TextField()
+    geolocation = models.BooleanField(default=True)
 
     def __str__(self):
         return self.account
+
+
+class Country(models.Model):
+    country_name = models.CharField(max_length=200)
+    country_code = models.CharField(max_length=2)
+    country_language_code = models.CharField(max_length=200)
+    topics = models.TextField()
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.country_name
