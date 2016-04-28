@@ -25,8 +25,8 @@ def index(request):
         if Country.objects.count() > 0 and country not in not_countries and conf.geolocation:
             country_object = Country.objects.filter(
                 country_code=country['country_code'].lower()).values('topics', 'languages')
-            topics = country_object['topics'].split()
-            languages = country_object['languages'].split()
+            topics = country_object[0]['topics'].split()
+            languages = country_object[0]['languages'].split()
         else:
             topics = conf.topics.split()
             languages = conf.languages.split()
@@ -44,15 +44,12 @@ def index(request):
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
     except Exception:
-        country_object = Country.objects.filter(
-            country_code=country['country_code'].lower()).values('topics', 'languages')
         tweet_object = {
             'name': '@Penelope',
             'user': 'Penelopé',
             'text': 'I can\'t find you love.',
             'date': datetime.now().strftime('%d/%b/%Y \t \t \t \t \t \t \t %H:%M'),
             'country': country,
-            'debug': country_object,
             'error': True
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
