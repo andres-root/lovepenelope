@@ -41,7 +41,7 @@ def index(request):
             'name': tweet.name,
             'user': '@{0}'.format(tweet.user),
             'text': tweet.text,
-            'date': tweet.twitter_date_created.strftime('%d/%b/%Y                       %H:%M')
+            'date': tweet.twitter_date_created.strftime('%d/%b/%Y              %H:%M')
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
@@ -50,7 +50,7 @@ def index(request):
             'name': '@Penelope',
             'user': 'Penelope',
             'text': 'I can\'t find you love.',
-            'date': datetime.now().strftime('%d/%b/%Y \t \t \t \t \t \t \t %H:%M'),
+            'date': datetime.now().strftime('%d/%b/%Y              %H:%M'),
             'error': True
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
