@@ -48,10 +48,9 @@ def index(request):
     except Exception:
         tweet_object = {
             'name': '@Penelope',
-            'user': 'Penelopé',
+            'user': 'Penelope',
             'text': 'I can\'t find you love.',
             'date': datetime.now().strftime('%d/%b/%Y \t \t \t \t \t \t \t %H:%M'),
-            'country': country,
             'error': True
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
