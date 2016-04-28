@@ -3,11 +3,13 @@ import json
 from django.http import HttpResponse
 from datetime import datetime
 from .api import Twitter
+from .utils import get_client_ip
 from .models import Tweet, TwitterConfiguration
 
 
 def index(request):
     try:
+        ip = get_client_ip(request)
         conf = TwitterConfiguration.objects.first()
         twitter = Twitter()
         topics = conf.topics.split()
@@ -20,7 +22,8 @@ def index(request):
             'user': '@{0}'.format(tweet.user),
             'text': tweet.text,
             'date': tweet.twitter_date_created.strftime('%d/%b/%Y      %H:%M'),
-            'error': False
+            'error': False,
+            'ip': ip,
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
