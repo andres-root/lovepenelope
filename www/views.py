@@ -10,6 +10,8 @@ from django.contrib.gis.geoip2 import GeoIP2
 
 def index(request):
     try:
+        init = request.GET.get('init', '0')
+        uid = request.GET.get('uid', '')
         not_countries = ['uknown', 'localhost']
         ip = get_client_ip(request)
         g = GeoIP2()

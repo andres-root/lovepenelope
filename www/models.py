@@ -38,3 +38,12 @@ class Country(models.Model):
 
     def __str__(self):
         return self.country_name
+
+
+class WelcomeMessage(models.Model):
+    country_code = models.CharField(max_length=2)
+    message = models.TextField()
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.message
