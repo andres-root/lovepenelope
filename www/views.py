@@ -1,6 +1,6 @@
 
-# from django.shortcuts import render
-from django.http import JsonResponse
+import json
+from django.http import HttpResponse
 from datetime import datetime
 from .api import Twitter
 from .models import Tweet, TwitterConfiguration
@@ -22,13 +22,15 @@ def index(request):
             'date': tweet.twitter_date_created.strftime('%d/%b/%Y      %H:%M'),
             'error': False
         }
-        return JsonResponse(tweet_object, safe=False)
+        context = json.dumps(tweet_object, ensure_ascii=False)
+        return HttpResponse(context, content_type="application/json;charset=utf-8")
     except Exception:
         tweet_object = {
             'name': '@Penelope',
-            'user': 'Penelope',
+            'user': 'Penelopé',
             'text': 'I can\'t find you love.',
-            'date': datetime.now().strftime('%d/%b/%Y                          %H:%M'),
+            'date': datetime.now().strftime('%d/%b/%Y \t \t \t \t \t \t \t %H:%M'),
             'error': True
         }
-        return JsonResponse(tweet_object, safe=False)
+        context = json.dumps(tweet_object, ensure_ascii=False)
+        return HttpResponse(context, content_type="application/json;charset=utf-8")
