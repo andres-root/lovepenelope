@@ -44,13 +44,15 @@ def index(request):
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
     except Exception:
+        country_object = Country.objects.filter(
+            country_code=country['country_code'].lower()).values('topics', 'languages')
         tweet_object = {
             'name': '@Penelope',
             'user': 'Penelopé',
             'text': 'I can\'t find you love.',
             'date': datetime.now().strftime('%d/%b/%Y \t \t \t \t \t \t \t %H:%M'),
             'country': country,
-            'debug': country_object = Country.objects.filter(country_code=country['country_code'].lower()).values('topics', 'languages'),
+            'debug': country_object,
             'error': True
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
