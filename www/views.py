@@ -1,5 +1,6 @@
 
 import json
+import pytz
 from django.http import HttpResponse
 from .api import Twitter
 from datetime import datetime
@@ -10,8 +11,8 @@ from django.contrib.gis.geoip2 import GeoIP2
 
 def index(request):
     try:
-        init = request.GET.get('init', '0')
-        uid = request.GET.get('uid', '')
+        # init = request.GET.get('init', '0')
+        # uid = request.GET.get('uid', '')
         not_countries = ['uknown', 'localhost']
         ip = get_client_ip(request)
         g = GeoIP2()
@@ -39,11 +40,13 @@ def index(request):
         twitter.stream(topics, languages)
         tweets = Tweet.objects.all()
         tweet = tweets[len(tweets) - 1]
+        ny_timezone = pytz.timezone("America/New_York")
+        ny_datetime = ny_timezone.normalize(tweet.twitter_date_created.astimezone(ny_timezone))
         tweet_object = {
             'name': tweet.name,
             'user': '@{0}'.format(tweet.user),
             'text': tweet.text,
-            'date': tweet.twitter_date_created.strftime('%d/%b/%Y               %H:%M')
+            'date': ny_datetime.strftime('%d/%b/%Y               %H:%M')
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
