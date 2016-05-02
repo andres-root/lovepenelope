@@ -38,8 +38,7 @@ def index(request):
             topics = conf.topics.split()
             languages = conf.languages.split()
         twitter.stream(topics, languages)
-        tweets = Tweet.objects.all()
-        tweet = tweets[len(tweets) - 1]
+        tweet = Tweet.objects.latest('twitter_date_created')
         ny_timezone = pytz.timezone("America/New_York")
         ny_datetime = ny_timezone.normalize(tweet.twitter_date_created.astimezone(ny_timezone))
         tweet_object = {
