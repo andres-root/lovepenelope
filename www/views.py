@@ -49,13 +49,14 @@ def index(request):
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
-    except Exception:
+    except Exception as e:
         tweet_object = {
             'name': '@Penelope',
             'user': 'Penelope',
             'text': 'I can\'t find you love.',
             'date': datetime.now().strftime('%d/%b/%Y               %H:%M'),
-            'error': True
+            'error': True,
+            'debug': str(e)
         }
         context = json.dumps(tweet_object, ensure_ascii=False)
         return HttpResponse(context, content_type="application/json;charset=utf-8")
