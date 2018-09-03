@@ -5,7 +5,7 @@ from django.db import models
 class Tweet(models.Model):
     name = models.CharField(max_length=200)
     user = models.CharField(max_length=200)
-    text = models.CharField(max_length=140)
+    text = models.CharField(max_length=600)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     twitter_date_created = models.DateTimeField(blank=True)
     date_updated = models.DateTimeField(auto_now=True, blank=True)
