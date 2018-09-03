@@ -13,10 +13,22 @@ class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
         if self.counter < self.limit:
             self.counter += 1
+            tweet_text = ''
+            if hasattr(status, 'retweeted_status'):
+                try:
+                    tweet_text = status.retweeted_status.extended_tweet['full_text']
+                except:
+                    tweet_text = status.retweeted_status.text
+            else:
+                try:
+                    tweet_text = status.extended_tweet['full_text']
+                except AttributeError:
+                    tweet_text = status.text
+
             tweet = Tweet(
                 name=status.author.name,
                 user=status.author.screen_name,
-                text=status.text,
+                text=tweet_text,
                 twitter_date_created=status.created_at
             )
             tweet.save()
