@@ -52,4 +52,7 @@ class Twitter(object):
     def stream(self, topics, languages):
         self.auth()
         self.api_stream = tweepy.Stream(auth=self.api.auth, listener=StreamListener())
-        self.api_stream.filter(track=topics, languages=languages)
+        try:
+            self.api_stream.filter(track=topics, languages=languages, tweet_mode='extended')
+        except Exception:
+            self.api_stream.filter(track=topics, languages=languages)
